@@ -369,8 +369,220 @@ class Node {
 
 - One line if-statement: `if (!node.next.next) this.tail = node.next;`
 
-## Functional Programming 101
+### Binary Search Tree
+- every node on a BST has either 0, 1, or 2 nodes
+- Lesser is to the left, Greater is to the right
+- Lookups are log n
 
+```js
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+  add(value) {
+    if (this.root === null) {
+      this.root = new Node(value);
+    }
+    else {
+      let current = this.root;
+      while(true) {
+        if (current.value > value) {
+          // go left
+          
+          if (current.left) {
+            current = current.left;
+          }
+          else {
+            current.left = new Node(value);
+            break;
+          }
+        }
+        else {
+          // go right
+          if (current.right) {
+            current = current.right;
+          }
+          else {
+            current.right = new Node(value);
+            break;
+          }    
+        }
+      }
+    }
+    return this;
+  }
+  toJSON() {
+    return JSON.stringify(this.root.serialize(), null, 4);
+  }
+  toObject() {
+    return this.root.serialize();
+  }
+}
+
+class Node {
+  constructor(value=null, left=null, right=null) {
+    this.left = left;
+    this.right = right;
+    this.value = value;
+  }
+  serialize() {
+    const ans = { value: this.value };
+    ans.left = this.left === null ? null : this.left.serialize();
+    ans.right = this.right === null ? null : this.right.serialize();
+    return ans;
+  }
+}
+```
+- BST's would be good for any kind of ordered data
+- one example was autocomplete for search
+
+### AVL Tree
+- by definition, an AVL is a BST but not vice versa.
+- An AVL tree is designed to keep the tree pretty flat
+- worst case is O (log n)
+- leaf nodes don't have children
+- a double rotation is a left rotation on one of the children and then a right rotation on the root node
+
+```js
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+  add(value) {
+    if (!this.root) {
+      this.root = new Node(value);
+    }
+    else {
+      this.root.add(value);
+    }
+  }
+  toJSON() {
+    return JSON.stringify(this.root.serialize(), null, 4);
+  }
+  toObject() {
+    return this.root.serialize();
+  }
+}
+
+class Node {
+  constructor(value=null, left=null, right=null) {
+    this.left = left;
+    this.right = right;
+    this.value = value;
+    this.height = 1;
+  }
+  add(value) {
+    
+    if (value < this.value) {
+      // go left
+      
+      if (this.left) {
+        this.left.add(value);
+      }
+      else {
+        this.left = new Node(value);
+      }
+      if (!this.right || this.right.height < this.left.height) {
+        this.height = this.left.height + 1;
+      }      
+    } else {
+      // go right
+      
+      if (this.right) {
+        this.right.add(value);
+      }
+      else {
+        this.right = new Node(value);
+      }
+      if (!this.left || this.right.height > this.left.height) {
+        this.height = this.right.height + 1;
+      } 
+    }
+    this.balance();
+  }
+  balance() {
+    const rightHeight = (this.right) ? this.right.height : 0;
+    const leftHeight = (this.left) ? this.left.height : 0;
+    
+    console.log( this.value, leftHeight, rightHeight );
+    
+    if ( leftHeight > rightHeight + 1 ) {
+      const leftRightHeight = (this.left.right) ? this.left.right.height : 0;
+      const leftLeftHeight = (this.left.left) ? this.left.left.height : 0;
+      
+      if (leftRightHeight > leftLeftHeight) {
+        this.left.rotateRR();
+      }
+      
+      this.rotateLL();
+    }
+    else if ( rightHeight > leftHeight + 1 ) {
+      const rightRightHeight = (this.right.right) ? this.right.right.height : 0;
+      const rightLeftHeight = (this.right.left) ? this.right.left.height : 0;
+      
+      if (rightLeftHeight > rightRightHeight) {
+        this.right.rotateLL();
+      }
+      
+      this.rotateRR();
+    }
+  }
+  rotateRR() {
+    const valueBefore = this.value;
+    const leftBefore = this.left;
+    this.value = this.right.value;
+    this.left = this.right;
+    this.right = this.right.right;
+    this.left.right = this.left.left;
+    this.left.left = leftBefore;
+    this.left.value = valueBefore;
+    this.left.updateInNewLocation();
+    this.updateInNewLocation();
+  }
+  rotateLL() {
+    const valueBefore = this.value;
+    const rightBefore = this.right;
+    this.value = this.left.value;
+    this.right = this.left;
+    this.left = this.left.left;
+    this.right.left = this.right.right;
+    this.right.right = rightBefore;
+    this.right.value = valueBefore;
+    this.right.updateInNewLocation();
+    this.updateInNewLocation();
+  }
+  updateInNewLocation() {
+    if (!this.right && !this.left) {
+      this.height = 1;
+    }
+    else if (!this.right || (this.left && this.right.height < this.left.height)) {
+        this.height = this.left.height + 1;
+    }
+    else { //if (!this.left || this.right.height > this.left.height)
+        this.height = this.right.height + 1;
+    }
+  }
+  serialize() {
+    const ans = { value: this.value };
+    ans.left = this.left === null ? null : this.left.serialize();
+    ans.right = this.right === null ? null : this.right.serialize();
+    ans.height = this.height;
+    return ans;
+  }
+}
+```
+
+### Hash Tables
+- the key itself is where to find it in memory
+- hashing algorithms must be indempotent (like a pure function, have no side-effects)
+- 
+
+## Functional Programming 101
+- Not having side effects means that it doesn't affect variables outside the function. You should be able
+to do a function and given the same input, deliver the same answer ALWAYS
+- Map is a higher order function
+- Reduce you condense an array into a single value (or object)
+- 
 
 
 
