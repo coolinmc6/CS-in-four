@@ -2,13 +2,12 @@
 
 **Resources**
 
-[http://btholt.github.io/four-semesters-of-cs/](http://btholt.github.io/four-semesters-of-cs/)
-
-[http://bigocheatsheet.com/](http://bigocheatsheet.com/)
+- [http://btholt.github.io/four-semesters-of-cs/](http://btholt.github.io/four-semesters-of-cs/)
+- [http://bigocheatsheet.com/](http://bigocheatsheet.com/)
 
 **Part 2:** 
 
-[https://btholt.github.io/four-semesters-of-cs-part-two/](https://btholt.github.io/four-semesters-of-cs-part-two/)
+- [https://btholt.github.io/four-semesters-of-cs-part-two/](https://btholt.github.io/four-semesters-of-cs-part-two/)
 
 ## Big O and Recursion
 - look at the big picture
@@ -16,7 +15,7 @@
 - constant time: O(1)
 - O(log n) => diminishing time for each additional item added. If the first 10 items takes 10 seconds, the next 10 could take 5 seconds, and then the next 10 items takes 2.5 seconds
 - the first line of Recursion is when you STOP recursing. If you don't write this, your function will just keep running
-- 
+
 
 ## Sorting Algorithms
 
