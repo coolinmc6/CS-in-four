@@ -1,9 +1,14 @@
 # Four Semesters of Computer Science in 5 Hours
 
 **Resources**
+
 [http://btholt.github.io/four-semesters-of-cs/](http://btholt.github.io/four-semesters-of-cs/)
+
 [http://bigocheatsheet.com/](http://bigocheatsheet.com/)
-**Part 2:** [https://btholt.github.io/four-semesters-of-cs-part-two/](https://btholt.github.io/four-semesters-of-cs-part-two/)
+
+**Part 2:** 
+
+[https://btholt.github.io/four-semesters-of-cs-part-two/](https://btholt.github.io/four-semesters-of-cs-part-two/)
 
 ## Big O and Recursion
 - look at the big picture
