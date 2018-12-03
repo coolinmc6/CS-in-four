@@ -1,3 +1,5 @@
+[Back to Computer Science](https://github.com/coolinmc6/CS-concepts)
+
 # Four Semesters of Computer Science in 5 Hours
 
 **Resources**
